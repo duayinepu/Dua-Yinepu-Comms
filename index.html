@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Forge 3D Commissions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #07070c;
+      --panel: rgba(18, 18, 28, 0.9);
+      --panel-border: rgba(0, 255, 255, 0.25);
+      --cyan: #00f7ff;
+      --pink: #ff4fd8;
+      --purple: #8f5cff;
+      --text: #e8f7ff;
+      --muted: #9fb3c8;
+      --shadow: 0 0 30px rgba(0, 247, 255, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #131329 0%, #090910 45%, #040406 100%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+      z-index: -1;
+    }
+
+    .glow.one {
+      background: var(--cyan);
+      top: -250px;
+      left: -200px;
+    }
+
+    .glow.two {
+      background: var(--pink);
+      bottom: -250px;
+      right: -200px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(6, 6, 12, 0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(0,247,255,0.7);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      transition: 0.2s ease;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+      text-shadow: 0 0 10px rgba(0,247,255,0.8);
+    }
+
+    header {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .hero {
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(255,255,255,0.15);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .hero-buttons {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 1.6rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      color: black;
+      box-shadow: 0 0 20px rgba(0,247,255,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0,247,255,0.5);
+    }
+
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.15);
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+
+    section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.4rem;
+      margin-bottom: 2.5rem;
+      color: var(--cyan);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      transition: 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 79, 216, 0.5);
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      color: var(--pink);
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      color: var(--muted);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 320px;
+      background-size: cover;
+      background-position: center;
+      transition: 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      border-color: var(--cyan);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      font-weight: 600;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about p {
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .about-box {
+      height: 350px;
+      border-radius: 28px;
+      background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.65)),
+        url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop') center/cover;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .tos-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .tos-item {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--pink);
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      color: var(--muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input,
+    textarea {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: white;
+      padding: 1rem;
+      border-radius: 14px;
+      font-family: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px rgba(0,247,255,0.25);
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      text-decoration: none;
+      color: var(--text);
+      transition: 0.2s ease;
+    }
+
+    .social-link:hover {
+      border-color: var(--pink);
+      transform: translateX(4px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 850px) {
+      .about,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <nav>
+    <div class="nav-container">
+      <div class="logo">NEON FORGE</div>
+
+      <div class="nav-links">
+        <a href="#pricing">Pricing</a>
+        <a href="#examples">Examples</a>
+        <a href="#tos">TOS</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="hero">
+      <h1>VRCHAT MODELS<br>WITH NEON STYLE</h1>
+
+      <p>
+        Custom furry avatars, textures, props, shaders, Unity setup, and stylized cyberpunk 3D work.
+        Built with Blender, Substance Painter, and Unity for VRChat and virtual worlds.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn btn-primary" href="#contact">Commission Me</a>
+        <a class="btn btn-secondary" href="#examples">View Portfolio</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="pricing">
+    <h2 class="section-title">Pricing</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Texture Work</h3>
+        <div class="price">$75+</div>
+
+        <ul>
+          <li>Substance Painter texturing</li>
+          <li>PBR material setup</li>
+          <li>Stylized or realistic finishes</li>
+          <li>VRChat optimized exports</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Avatar Edits</h3>
+        <div class="price">$150+</div>
+
+        <ul>
+          <li>Clothing and accessories</li>
+          <li>Hair or ear edits</li>
+          <li>Shader setup</li>
+          <li>Unity prefab configuration</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Full Custom Models</h3>
+        <div class="price">$600+</div>
+
+        <ul>
+          <li>Fully custom furry avatar</li>
+          <li>Rigging and optimization</li>
+          <li>Custom textures and materials</li>
+          <li>VRChat ready package</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="examples">
+    <h2 class="section-title">Examples</h2>
+
+    <div class="gallery">
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop');">
+        <div class="gallery-overlay">Cyber Wolf Avatar</div>
+      </div>
+
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop');">
+        <div class="gallery-overlay">Neon Club Outfit</div>
+      </div>
+
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop');">
+        <div class="gallery-overlay">Stylized VRChat Prop</div>
+      </div>
+
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop');">
+        <div class="gallery-overlay">Custom Shader Setup</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tos">
+    <h2 class="section-title">Terms of Service</h2>
+
+    <div class="tos-list">
+      <div class="tos-item">50% payment upfront before work begins.</div>
+      <div class="tos-item">No refunds once modeling or texturing work has started.</div>
+      <div class="tos-item">Estimated turnaround time depends on project complexity.</div>
+      <div class="tos-item">You may use commissioned work personally and on VRChat.</div>
+      <div class="tos-item">Commercial usage requires prior discussion and pricing.</div>
+      <div class="tos-item">I reserve the right to decline projects I am uncomfortable with.</div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+
+    <div class="about">
+      <div>
+        <p>
+          I'm a 3D artist focused on VRChat avatars, cyberpunk aesthetics, furry character design,
+          and immersive virtual world assets. My workflow combines Blender for modeling,
+          Substance Painter for high-detail textures, and Unity for final implementation.
+        </p>
+
+        <br>
+
+        <p>
+          I specialize in creating expressive avatars with clean optimization, vivid neon materials,
+          and strong silhouettes designed for virtual social spaces.
+        </p>
+      </div>
+
+      <div class="about-box"></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact + Socials</h2>
+
+    <div class="contact-grid">
+      <div class="card">
+        <form action="https://formsubmit.co/your-email@example.com" method="POST">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Tell me about your commission..." required></textarea>
+
+          <button type="submit" class="btn btn-primary">Send Request</button>
+        </form>
+      </div>
+
+      <div class="socials">
+        <a class="social-link" href="https://twitter.com" target="_blank">
+          <span>Twitter / X</span>
+          <span>@yourhandle</span>
+        </a>
+
+        <a class="social-link" href="https://bsky.app" target="_blank">
+          <span>Bluesky</span>
+          <span>@yourhandle</span>
+        </a>
+
+        <a class="social-link" href="https://discord.com" target="_blank">
+          <span>Discord</span>
+          <span>YourDiscord#0001</span>
+        </a>
+
+        <a class="social-link" href="https://gumroad.com" target="_blank">
+          <span>Storefront</span>
+          <span>Gumroad</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Neon Forge 3D Commissions • Built for GitHub Pages
+  </footer>
+
+</body>
+</html>
