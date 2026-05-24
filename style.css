@@ -1,0 +1,94 @@
+<section id="avatars">
+
+  <h3>Avatar Bases I Own</h3>
+
+  <div class="card avatar-list">
+
+    <p>
+      Big VCat by skip4D •
+      Synth by Zephyr "Blackjack" •
+      Pupper by Tosca's VR Works •
+      Chimera Eclipse by lackofbindings •
+      Leggy Avatar Bundle by Spaghet •
+      Rexouium by Rezillo Ryker •
+      Mantled Beast by Kumo PolyWorks •
+      Lykana by Vivi •
+      Aspen by FoxiPaws •
+      Hyenid by alber •
+      Avian by Kudalyn •
+      Jex by Kudalyn •
+      Akia by FoxiPaws •
+      Sylvin by Kudalyn •
+      Novabeast by Kittomatic •
+      Crow by MYRIADD •
+      Dragon by Kudalyn •
+      Ace Base by Skully Hellfire •
+      Lilith Deer/Goat by FoxiPaws •
+      Honey Furry Bear/Doggo by FoxiPaws •
+      Azalea Dragon by FoxiPaws •
+      Zurg by Tokyozilla •
+      Bjorn the Bear/Dog by FoxiPaws •
+      Roxy Puppy Dog Pom by FoxiPaws •
+      Eldritch Avian: Bird of Prey Pack
+    </p>
+
+  </div>
+
+</section>
+
+<section id="contact">
+
+  <h3>Contact & Socials</h3>
+
+  <div class="contact-grid">
+
+    <div class="card socials">
+
+      <a href="https://www.instagram.com/duayinepu/?hl=en" target="_blank">
+        Main Instagram
+      </a>
+
+      <a href="https://www.instagram.com/duayinepuvrc/?hl=en" target="_blank">
+        VRChat Instagram
+      </a>
+
+      <a href="https://bsky.app/profile/duayinepu.bsky.social" target="_blank">
+        Bluesky
+      </a>
+
+      <a href="https://duayinepu.gumroad.com" target="_blank">
+        Gumroad
+      </a>
+
+      <a href="https://discordapp.com/users/254396946662293504" target="_blank">
+        Discord
+      </a>
+
+    </div>
+
+    <form class="card contact-form">
+
+      <input type="text" placeholder="Your Name">
+
+      <input type="email" placeholder="Your Email">
+
+      <textarea placeholder="Tell me about your commission..."></textarea>
+
+      <button type="submit">
+        Send Inquiry
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+<footer>
+  <p>Dua Yinepu © 2026</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
